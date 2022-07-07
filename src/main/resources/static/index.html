@@ -29,21 +29,11 @@
                     <li class="nav-item" ng-show="isUserLoggedIn()">
                         <a class="nav-link" href="#!/create_product">Добавить товар(техн)</a>
                     </li>
-
-                    <li class="nav-item" ng-show="!isUserLoggedIn()">
-                        <form class="align-middle" ng-submit="tryToAuth()">
-                            <div class="input-group input-group-sm" style="padding: 4px;">
-                                <input id="navLoginField" class="form-control" ng-model="user.username" type="text"
-                                       aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
-
-                                <input id="navPasswordField" class="form-control" ng-model="user.password" type="password"
-                                       aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
-
-                                <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm"
-                                        style="margin-left: 10px;" type="submit">Войти
-                                </button>
-                            </div>
-                        </form>
+                    <li class="nav-item" ng-show="!isUserLoggedIn()" style="padding: 4px;">
+                        <button class="btn btn-outline-secondary btn-sm" ng-click="navToRegPage()">Зарегестрироваться</button>
+                    </li>
+                    <li class="nav-item" ng-show="!isUserLoggedIn()" style="padding: 4px;">
+                        <button class="btn btn-outline-secondary btn-sm" ng-click="navToAuthPage()">Войти</button>
                     </li>
                     <li class="nav-item" ng-show="isUserLoggedIn()" style="padding: 4px;">
                         <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Выйти</button>
@@ -62,6 +52,8 @@
     <script src="welcome/welcome.js"></script>
     <script src="edit_product/edit_product.js"></script>
     <script src="create_product/create_product.js"></script>
+    <script src="auth_page/auth_page.js"></script>
+    <script src="reg_page/reg_page.js"></script>
 
 </div>
 </body>

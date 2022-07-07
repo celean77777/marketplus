@@ -1,13 +1,16 @@
 package ru.gb.market.services;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.gb.market.model.Product;
 import ru.gb.market.model.Role;
 import ru.gb.market.model.User;
 import ru.gb.market.repositories.UserRepository;
@@ -17,12 +20,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Data
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public User save(User user) {
+        return userRepository.save(new User(user.getUsername(), BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()), user.getEmail()));
     }
 
     @Override

@@ -7,15 +7,18 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import ru.gb.market.dto.AuthRequest;
 import ru.gb.market.dto.AuthResponse;
 import ru.gb.market.exceptions.MarketError;
+import ru.gb.market.model.User;
 import ru.gb.market.services.UserService;
 import ru.gb.market.utils.JwtTokenUtil;
+
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -25,6 +28,14 @@ public class AuthController {
     private final UserService userService;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
+
+
+    @PostMapping("/users")
+    @ResponseStatus(HttpStatus.CREATED)
+    public User save(@RequestBody User user) {
+        userService.save(user);
+        return user;
+    }
 
     @PostMapping("/auth")
     public ResponseEntity<?> createAuthToken(@RequestBody AuthRequest authRequest) {

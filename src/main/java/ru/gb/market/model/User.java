@@ -1,6 +1,7 @@
 package ru.gb.market.model;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,6 +11,7 @@ import java.util.Collection;
 
 @Entity
 @Data
+@RequiredArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -39,4 +41,10 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }

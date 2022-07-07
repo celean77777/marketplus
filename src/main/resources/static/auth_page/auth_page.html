@@ -1,0 +1,17 @@
+<div>
+    <p></p>
+    <h3>Вход</h3>
+
+    <form novalidate ng-submit="tryToAuth()">
+        <div class="mb-3">
+            <label  class="form-label">Имя</label>
+            <input type="text" class="form-control" placeholder="Имя" ng-model="user.username">
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Пароль</label>
+            <input type="password" class="form-control" placeholder="Пароль" ng-model="user.password">
+        </div>
+        <p></p>
+        <button type="submit" class="btn btn-primary">Войти</button>
+    </form>
+</div>
