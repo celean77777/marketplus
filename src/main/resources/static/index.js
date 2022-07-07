@@ -22,6 +22,14 @@
                 templateUrl: 'create_product/create_product.html',
                 controller: 'createProductController'
             })
+            .when('/auth_page', {
+                templateUrl: 'auth_page/auth_page.html',
+                controller: 'authPageController'
+            })
+            .when('/reg_page', {
+                templateUrl: 'reg_page/reg_page.html',
+                controller: 'regPageController'
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -34,22 +42,8 @@
     }
 })();
 
-angular.module('market-front').controller('indexController', function ($rootScope, $scope, $http, $localStorage) {
+angular.module('market-front').controller('indexController', function ($rootScope, $scope, $http, $localStorage, $location) {
     const contextPath = 'http://localhost:8189/market/api/v1';
-
-    $scope.tryToAuth = function () {
-        $http.post(contextPath + '/auth', $scope.user)
-            .then(function successCallback(response) {
-                if (response.data.token) {
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    $localStorage.webMarketUser = {username: $scope.user.username, token: response.data.token};
-
-                    $scope.user.username = null;
-                    $scope.user.password = null;
-                }
-            }, function errorCallback(response) {
-            });
-    };
 
     $scope.tryToLogout = function () {
         $scope.clearUser();
@@ -60,7 +54,6 @@ angular.module('market-front').controller('indexController', function ($rootScop
             $scope.user.password = null;
         }
     };
-
     $scope.clearUser = function () {
         delete $localStorage.webMarketUser;
         $http.defaults.headers.common.Authorization = '';
@@ -73,4 +66,12 @@ angular.module('market-front').controller('indexController', function ($rootScop
             return false;
         }
     };
+
+    $scope.navToRegPage = function (){
+        $location.path('/reg_page/');
+    }
+
+    $scope.navToAuthPage = function (){
+        $location.path('/auth_page/');
+    }
 });
